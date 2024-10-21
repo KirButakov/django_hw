@@ -5,3 +5,5 @@ __pycache__/
 staticfiles/
 echo "db.sqlite3" >> .gitignore
 .env
+.idea/
+venv/
