@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Skystore</title>
-    <!-- Подключите статичеcкие файлы со стилями Bootstrap -->
     <link href="{% static 'catalog/css/bootstrap.min.css' %}" rel="stylesheet">
 </head>
 <body>
@@ -14,6 +13,7 @@
     <nav class="ms-5">
         <a class="p-2 btn btn-outline-primary" href="/">Каталог</a>
         <a class="p-2 btn btn-outline-primary" href="/contacts/">Контакты</a>
+        <a class="p-2 btn btn-outline-primary" href="{% url 'product_list' %}">Продукты</a> <!-- Новая ссылка -->
     </nav>
 </div>
 
@@ -75,7 +75,6 @@
         </div>
     </footer>
 </div>
-<!-- Подключите статичеcкие файлы со скриптами Bootstrap -->
 <script src="{% static 'catalog/js/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>

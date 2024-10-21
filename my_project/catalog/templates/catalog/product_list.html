@@ -1,0 +1,15 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+    <h1>Product List</h1>
+    <ul class="list-group">
+        {% for product in products %}
+            <li class="list-group-item">
+                <a href="{% url 'product_detail' product.pk %}">{{ product.name }}</a> - {{ product.price }}₽
+                <p>{{ product.description|truncatechars:100 }}</p>
+            </li>
+        {% empty %}
+            <li class="list-group-item">No products available.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
