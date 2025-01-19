@@ -7,3 +7,4 @@ echo "db.sqlite3" >> .gitignore
 .env
 .idea/
 venv/
+my_project/venv/
