@@ -64,8 +64,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'catalog', 'templates'),
-            os.path.join(BASE_DIR, 'blog', 'templates'),
+            BASE_DIR / 'catalog' / 'templates',  # Путь к папке с шаблонами
+            BASE_DIR / 'blog' / 'templates',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
