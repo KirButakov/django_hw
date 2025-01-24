@@ -1,15 +1,11 @@
-{% extends 'base.html' %}
+{% extends 'catalog/base.html' %}
+
+{% block title %}Детали продукта{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1>{{ product.name }}</h1>
-
-
-    <p><strong>Price:</strong> {{ product.price }}</p>
-    <p><strong>Description:</strong> {{ product.description }}</p>
-    <p><strong>Category:</strong> {{ product.category.name }}</p>
-
-    <!-- Показать, доступен ли товар -->
-    <p><strong>Available:</strong> {% if product.available %} Yes {% else %} No {% endif %}</p>
-</div>
+<h1 class="mb-4">{{ product.name }}</h1>
+<p><strong>Описание:</strong> {{ product.description }}</p>
+<p><strong>Цена:</strong> {{ product.price }}</p>
+<p><strong>Категория:</strong> {{ product.category.name }}</p>
+<a href="{% url 'product_list' %}" class="btn btn-secondary">Назад</a>
 {% endblock %}

@@ -1,25 +1,29 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}My Shop{% endblock %}</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'catalog/css/bootstrap.min.css' %}">
+    <title>{% block title %}Каталог{% endblock %}</title>
 </head>
 <body>
     <header>
-        {% include 'catalog/menu.html' %}
-    </header>
-
-    <main role="main" class="container">
-        {% block content %}
+        {% block header %}
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="{% url 'home' %}">Главная</a>
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link" href="{% url 'product_list' %}">Продукты</a>
+                    <a class="nav-item nav-link" href="{% url 'blogs:blog_post_list' %}">Блог</a>
+                </div>
+            </nav>
         {% endblock %}
+    </header>
+    <main class="container mt-5">
+        {% block content %}{% endblock %}
     </main>
-
-    <footer class="footer">
-        <div class="container">
-            <span class="text-muted">© 2024 My Shop</span>
-        </div>
+    <footer class="mt-5">
+        <p class="text-center">© 2025 Каталог</p>
     </footer>
 </body>
 </html>

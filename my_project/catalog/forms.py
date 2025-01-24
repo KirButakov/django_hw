@@ -1,10 +1,11 @@
 from django import forms
 from .models import Product
 
+
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['name', 'description', 'price', 'available']
+        fields = ['name', 'description', 'price', 'available', 'category']
 
     def check_forbidden_words(self, field_value):
         forbidden_words = Product.FORBIDDEN_WORDS
@@ -27,9 +28,16 @@ class ProductForm(forms.ModelForm):
             raise forms.ValidationError('Цена не может быть отрицательной.')
         return price
 
-    # Добавление стилизации с помощью метода __init__
     def __init__(self, *args, **kwargs):
         super(ProductForm, self).__init__(*args, **kwargs)
-        # Применяем класс 'form-control' ко всем полям формы
+
+
+        if not self.instance.pk:
+            self.fields['available'].initial = True
+
+
+        self.fields['available'].required = False
+
+
         for field in self.fields.values():
             field.widget.attrs['class'] = 'form-control'
