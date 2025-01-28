@@ -2,6 +2,7 @@ from django.views.generic import TemplateView, ListView, DetailView
 from .models import Product
 from django.shortcuts import render, redirect
 from .forms import ProductForm
+from django.http import Http404
 
 class HomeView(TemplateView):
     template_name = 'catalog/home.html'
@@ -41,7 +42,11 @@ def product_update(request, pk):
     return render(request, 'catalog/product_form.html', {'form': form})
 
 def product_delete(request, pk):
-    product = Product.objects.get(pk=pk)
+    try:
+        product = Product.objects.get(pk=pk)
+    except Product.DoesNotExist:
+        raise Http404("Продукт не найден")
+
     if request.method == 'POST':
         product.delete()
         return redirect('product_list')  # Перенаправление на страницу со списком продуктов

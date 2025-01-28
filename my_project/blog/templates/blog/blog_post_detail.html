@@ -1,11 +1,12 @@
 {% extends 'catalog/base.html' %}
+
 {% block content %}
     <h2>{{ object.title }}</h2>
     <img src="{{ object.preview_image.url }}" alt="{{ object.title }}">
     <p>{{ object.content }}</p>
     <p>Количество просмотров: {{ object.view_count }}</p>
 
-    <a href="{% url 'blog_post_update' object.pk %}">Редактировать</a>
-    <a href="{% url 'blog_post_delete' object.pk %}">Удалить</a>
-    <a href="{% url 'blog_post_list' %}">Назад к списку</a>
+    <a href="{% url 'blog:blog_post_update' object.pk %}">Редактировать</a>
+    <a href="{% url 'blog:blog_post_delete' object.pk %}">Удалить</a>
+    <a href="{% url 'blog:blog_post_list' %}">Назад к списку</a>
 {% endblock %}

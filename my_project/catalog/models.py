@@ -12,7 +12,6 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-
 class Product(models.Model):
     FORBIDDEN_WORDS = [
         'казино',
@@ -35,17 +34,8 @@ class Product(models.Model):
     def clean(self):
         super().clean()
 
-        # Валидация запрещенных слов в name
-        for word in self.FORBIDDEN_WORDS:
-            if word.lower() in self.name.lower():
-                raise ValidationError(f'Название не может содержать слово: {word}')
 
-        # Валидация запрещенных слов в description
-        for word in self.FORBIDDEN_WORDS:
-            if word.lower() in self.description.lower():
-                raise ValidationError(f'Описание не может содержать слово: {word}')
 
-        # Валидация поля price
         if self.price < 0:
             raise ValidationError('Цена не может быть отрицательной.')
 

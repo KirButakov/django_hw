@@ -25,7 +25,7 @@ class BlogPostCreateView(CreateView):
     fields = ['title', 'content', 'preview_image', 'is_published']
 
     def get_success_url(self):
-        return reverse_lazy('blog_post_list')
+        return reverse_lazy('blog:blog_post_list')
 
 class BlogPostUpdateView(UpdateView):
     model = BlogPost
@@ -33,9 +33,9 @@ class BlogPostUpdateView(UpdateView):
     fields = ['title', 'content', 'preview_image', 'is_published']
 
     def get_success_url(self):
-        return reverse_lazy('blog_post_detail', kwargs={'pk': self.object.pk})
+        return reverse_lazy('blog:blog_post_detail', kwargs={'pk': self.object.pk})
 
 class BlogPostDeleteView(DeleteView):
     model = BlogPost
     template_name = 'blog/blog_post_confirm_delete.html'
-    success_url = reverse_lazy('blog_post_list')
+    success_url = reverse_lazy('blog:blog_post_list')

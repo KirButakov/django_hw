@@ -1,7 +1,6 @@
 from django import forms
 from .models import Product
 
-
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
@@ -31,13 +30,13 @@ class ProductForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ProductForm, self).__init__(*args, **kwargs)
 
-
         if not self.instance.pk:
             self.fields['available'].initial = True
 
-
         self.fields['available'].required = False
-
 
         for field in self.fields.values():
             field.widget.attrs['class'] = 'form-control'
+
+        # Убедимся, что отображается чекбокс
+        self.fields['available'].widget = forms.CheckboxInput()

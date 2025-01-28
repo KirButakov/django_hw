@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import BlogPostListView, BlogPostDetailView, BlogPostCreateView, BlogPostUpdateView, BlogPostDeleteView
 
-app_name = 'blogs'
+app_name = 'blog'
 
 urlpatterns = [
     path('', BlogPostListView.as_view(), name='blog_post_list'),

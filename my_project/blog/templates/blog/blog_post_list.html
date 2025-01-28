@@ -1,15 +1,16 @@
 {% extends 'catalog/base.html' %}
+
 {% block content %}
     <h2>Список блоговых записей</h2>
     <ul>
         {% for post in object_list %}
             <li>
-                <a href="{% url 'blog_post_detail' post.pk %}">{{ post.title }}</a> -
+                <a href="{% url 'blog:blog_post_detail' post.pk %}">{{ post.title }}</a> -
                 Просмотры: {{ post.view_count }}
             </li>
         {% empty %}
             <li>Нет опубликованных записей.</li>
         {% endfor %}
     </ul>
-    <a href="{% url 'blog_post_create' %}">Создать новую запись</a>
+    <a href="{% url 'blog:blog_post_create' %}">Создать новую запись</a>
 {% endblock %}
