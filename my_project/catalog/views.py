@@ -1,8 +1,10 @@
 from django.views.generic import TemplateView, ListView, DetailView
-from .models import Product
-from django.shortcuts import render, redirect
-from .forms import ProductForm
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404
+from .models import Product
+from .forms import ProductForm
 
 class HomeView(TemplateView):
     template_name = 'catalog/home.html'
@@ -20,6 +22,8 @@ class ProductDetailView(DetailView):
     template_name = 'catalog/product_detail.html'
     context_object_name = 'product'
 
+# Декорируем функцию product_create для проверки авторизации
+@login_required
 def product_create(request):
     if request.method == 'POST':
         form = ProductForm(request.POST)
@@ -30,8 +34,10 @@ def product_create(request):
         form = ProductForm()
     return render(request, 'catalog/product_form.html', {'form': form})
 
+# Декорируем функцию product_update для проверки авторизации
+@login_required
 def product_update(request, pk):
-    product = Product.objects.get(pk=pk)
+    product = get_object_or_404(Product, pk=pk)
     if request.method == 'POST':
         form = ProductForm(request.POST, instance=product)
         if form.is_valid():
@@ -41,6 +47,8 @@ def product_update(request, pk):
         form = ProductForm(instance=product)
     return render(request, 'catalog/product_form.html', {'form': form})
 
+# Декорируем функцию product_delete для проверки авторизации
+@login_required
 def product_delete(request, pk):
     try:
         product = Product.objects.get(pk=pk)

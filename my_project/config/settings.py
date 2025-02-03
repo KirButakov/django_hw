@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'catalog',
     'blog',
     'django_extensions',
+    'users',
 ]
 
 # Middleware
@@ -112,7 +113,7 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 
 # Медиа файлы
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Логи (дополнительно, если нужно)
 LOGGING = {
@@ -130,3 +131,7 @@ LOGGING = {
 }
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+AUTH_USER_MODEL = 'users.CustomUser'
+
+LOGIN_URL = '/users/login/'
