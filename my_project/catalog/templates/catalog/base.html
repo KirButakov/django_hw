@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'catalog/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'users/css/styles.css' %}">  <!-- Подключение стилей для форм -->
     <title>{% block title %}Каталог{% endblock %}</title>
 </head>
 <body>
@@ -15,6 +16,19 @@
                 <div class="navbar-nav">
                     <a class="nav-item nav-link" href="{% url 'product_list' %}">Продукты</a>
                     <a class="nav-item nav-link" href="{% url 'blogs:blog_post_list' %}">Блог</a>
+                </div>
+                <div class="navbar-nav ml-auto">
+                    {% if user.is_authenticated %}
+                        <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="nav-item nav-link btn btn-link" style="border: none; padding: 0; background: none; cursor: pointer;">
+                                Выход
+                            </button>
+                        </form>
+                    {% else %}
+                        <a class="nav-item nav-link" href="{% url 'login' %}">Вход</a>
+                        <a class="nav-item nav-link" href="{% url 'register' %}">Регистрация</a>
+                    {% endif %}
                 </div>
             </nav>
         {% endblock %}
@@ -27,3 +41,4 @@
     </footer>
 </body>
 </html>
+
