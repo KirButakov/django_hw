@@ -2,7 +2,7 @@ from django.views.generic import TemplateView, ListView, DetailView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import Http404
+from django.http import Http404, HttpResponseForbidden
 from .models import Product
 from .forms import ProductForm
 
@@ -28,16 +28,23 @@ def product_create(request):
     if request.method == 'POST':
         form = ProductForm(request.POST)
         if form.is_valid():
-            form.save()
+            product = form.save(commit=False)
+            product.owner = request.user  # Присваиваем владельца
+            product.save()
             return redirect('product_list')  # Перенаправление на страницу со списком продуктов
     else:
         form = ProductForm()
     return render(request, 'catalog/product_form.html', {'form': form})
 
-# Декорируем функцию product_update для проверки авторизации
+# Декорируем функцию product_update для проверки авторизации и прав владельца
 @login_required
 def product_update(request, pk):
     product = get_object_or_404(Product, pk=pk)
+
+    # Проверка на то, что только владелец или модератор может редактировать продукт
+    if request.user != product.owner and not request.user.groups.filter(name='Модераторы').exists():
+        return HttpResponseForbidden('У вас нет прав для редактирования этого продукта.')
+
     if request.method == 'POST':
         form = ProductForm(request.POST, instance=product)
         if form.is_valid():
@@ -47,13 +54,14 @@ def product_update(request, pk):
         form = ProductForm(instance=product)
     return render(request, 'catalog/product_form.html', {'form': form})
 
-# Декорируем функцию product_delete для проверки авторизации
+# Декорируем функцию product_delete для проверки авторизации и прав владельца
 @login_required
 def product_delete(request, pk):
-    try:
-        product = Product.objects.get(pk=pk)
-    except Product.DoesNotExist:
-        raise Http404("Продукт не найден")
+    product = get_object_or_404(Product, pk=pk)
+
+    # Проверка на то, что только владелец или модератор может удалить продукт
+    if request.user != product.owner and not request.user.groups.filter(name='Модераторы').exists():
+        return HttpResponseForbidden('У вас нет прав для удаления этого продукта.')
 
     if request.method == 'POST':
         product.delete()
