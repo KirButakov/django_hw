@@ -8,7 +8,7 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'price', 'category_name', 'status', 'owner')
-    list_filter = ('category__name', 'status')  # Фильтрация по статусу и категории
+    list_filter = ('category__name', 'status')  # Фильтрация по статусу и категори
     search_fields = ('name', 'description')
 
     def category_name(self, obj):

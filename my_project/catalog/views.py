@@ -54,7 +54,7 @@ def product_update(request, pk):
         form = ProductForm(instance=product)
     return render(request, 'catalog/product_form.html', {'form': form})
 
-# Декорируем функцию product_delete для проверки авторизации и прав владельца
+# Декорируем функцию product_delete для проверки авторизации и прав владельц
 @login_required
 def product_delete(request, pk):
     product = get_object_or_404(Product, pk=pk)

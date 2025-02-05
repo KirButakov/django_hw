@@ -14,7 +14,7 @@ class Category(models.Model):
         return self.name
 
 class Product(models.Model):
-    # Статус публикации
+
     DRAFT = 'draft'
     PUBLISHED = 'published'
     STATUS_CHOICES = [
