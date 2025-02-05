@@ -14,7 +14,6 @@ class Category(models.Model):
         return self.name
 
 class Product(models.Model):
-
     DRAFT = 'draft'
     PUBLISHED = 'published'
     STATUS_CHOICES = [
@@ -30,6 +29,11 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="products")
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default=DRAFT)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+    class Meta:
+        permissions = [
+            ("can_unpublish_product", "Can unpublish product"),
+        ]
 
     # Валидация
     def clean(self):
