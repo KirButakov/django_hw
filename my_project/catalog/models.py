@@ -21,6 +21,9 @@ class Product(models.Model):
         (PUBLISHED, 'Опубликован'),
     ]
 
+    # Список запрещённых слов
+    FORBIDDEN_WORDS = ['плохое_слово_1', 'плохое_слово_2', 'плохое_слово_3']  # Здесь можно добавить свои слова
+
     # Поля модели
     name = models.CharField(max_length=200)
     description = models.TextField()
