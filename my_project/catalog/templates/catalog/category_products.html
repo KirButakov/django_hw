@@ -1,0 +1,12 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+    <h1>Продукты в категории: {{ category.name }}</h1>
+    <ul>
+        {% for product in products %}
+            <li>{{ product.name }} - {{ product.price }} руб.</li>
+        {% empty %}
+            <p>В этой категории пока нет продуктов.</p>
+        {% endfor %}
+    </ul>
+{% endblock %}
