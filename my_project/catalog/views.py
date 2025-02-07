@@ -87,3 +87,4 @@ def product_delete(request, pk):
         invalidate_view_cache(reverse('product_list'))
         return redirect('product_list')
     return render(request, 'catalog/product_confirm_delete.html', {'product': product})
+
